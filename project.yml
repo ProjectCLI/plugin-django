@@ -1,0 +1,5 @@
+name: projectcli/django
+version: v1.0.0
+commands:
+    - \ProjectCLI\Django\Commands\DjangoAdminCommand
+    - \ProjectCLI\Django\Commands\DjangoCreateCommand
