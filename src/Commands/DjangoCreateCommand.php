@@ -9,6 +9,7 @@ namespace ProjectCLI\Django\Commands;
 
 use Chriha\ProjectCLI\Commands\Command;
 use Chriha\ProjectCLI\Helpers;
+use Chriha\ProjectCLI\Services\Docker;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
@@ -35,13 +36,21 @@ class DjangoCreateCommand extends Command
     /**
      * Execute the console command.
      *
+     * @param Docker $docker
      * @return void
      */
-    public function handle() : void
+    public function handle(Docker $docker) : void
     {
         $name = $this->argument('name');
 
-        $this->call('django:admin', ['startproject', $name]);
+        $docker->exec('web', ['django-admin', 'startproject', $name])
+            ->setTty(true)
+            ->run(
+                function ($type, $buffer)
+                {
+                    $this->output->write($buffer);
+                }
+            );
 
         $src = Helpers::projectPath('src');
         $tmp = Helpers::projectPath('temp/cp');
