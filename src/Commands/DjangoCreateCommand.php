@@ -30,7 +30,7 @@ class DjangoCreateCommand extends Command
      */
     public function configure() : void
     {
-        $this->addArgument('name', InputArgument::OPTIONAL, 'The name of the project');
+        $this->addArgument('name', InputArgument::REQUIRED, 'The name of the project', null);
     }
 
     /**
