@@ -58,7 +58,10 @@ class DjangoCreateCommand extends Command
         mkdir($tmp, 0755, true);
 
         Helpers::recursiveCopy("{$src}/{$name}", $tmp);
-        copy("{$src}/.gitignore", "{$tmp}/.gitignore");
+
+        if (file_exists("{$src}/.gitignore")) {
+            copy("{$src}/.gitignore", "{$tmp}/.gitignore");
+        }
 
         Helpers::rmdir($src);
         Helpers::recursiveCopy($tmp, $src);
