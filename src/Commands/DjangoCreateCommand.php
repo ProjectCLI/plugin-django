@@ -74,7 +74,7 @@ class DjangoCreateCommand extends Command
     public static function isActive() : bool
     {
         return PROJECT_IS_INSIDE
-            && Helpers::isProjectType('django')
+            && (Helpers::isProjectType('python') || Helpers::isProjectType('django'))
             && ! file_exists(Helpers::projectPath('src/manage.py'));
     }
 
